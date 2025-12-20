@@ -1,0 +1,36 @@
+import { expect, Locator, Page } from '@playwright/test';
+
+export class LoginPage {
+    // Define Selectors
+    readonly page: Page;
+    readonly usernameInput: Locator;
+    readonly passwordInput: Locator;
+    readonly submitButton: Locator;
+    readonly errorMessage: Locator;
+
+    constructor(page: Page) {
+        this.page = page;
+        // Using specific selectors for better reliability
+        this.usernameInput = page.locator('#user_login');
+        this.passwordInput = page.locator('#user_password');
+        this.submitButton = page.locator('text=Sign in');
+        this.errorMessage = page.locator('.alert-error');
+    }
+
+    // Define login page methods
+    async visit() {
+        await this.page.goto('http://zero.webappsecurity.com/login.html');
+    }
+
+    async login(username: string, password: string) {
+        // Use the locator objects directly to perform actions
+        await this.usernameInput.fill(username);
+        await this.passwordInput.fill(password);
+        await this.submitButton.click();
+    }
+
+    async assertErrorMessageVisible() {
+        // Assertions should target the locator directly
+        await expect(this.errorMessage).toBeVisible();
+    }
+}
