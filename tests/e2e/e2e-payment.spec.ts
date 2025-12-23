@@ -19,9 +19,9 @@ test.describe('New Payment', () => {
     await page.click('#sp_get_payee_details')
     await page.waitForSelector('#sp_payee_details')
     await page.selectOption('#sp_account', '6')
-    await page.type('#sp_amount', '5000')
-    await page.type('#sp_date', '2021-11-09')
-    await page.type('#sp_description', 'some random message')
+    await page.fill('#sp_amount', '5000')
+    await page.fill('#sp_date', '2021-11-09')
+    await page.fill('#sp_description', 'some random message')
     await page.click('#pay_saved_payees')
 
     const message = await page.locator('#alert_content > span')
