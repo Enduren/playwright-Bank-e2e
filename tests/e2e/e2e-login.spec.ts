@@ -23,10 +23,7 @@ test.describe.parallel('Login / Logout Flow', () => {
 
   // Positive Scenario + Logout
   test('Positive Scenario for login + logout', async ({ page }) => {
-    // await page.click('#signin_button')
-    // await page.type('#user_login', 'username')
-    // await page.type('#user_password', 'password')
-    // await page.click('text=Sign in')
+    
 
     await loginPage.login("username","password")
     await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html')
