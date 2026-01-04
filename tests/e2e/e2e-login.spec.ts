@@ -4,9 +4,11 @@ import { LoginPage } from '../page/LoginPage'
 test.describe.parallel('Login / Logout Flow', () => {
 
   let loginPage: LoginPage
+
   // Before Hook
   test.beforeEach(async ({ page }) => {
     loginPage=new LoginPage(page)
+    
     loginPage.visit()
     
     
