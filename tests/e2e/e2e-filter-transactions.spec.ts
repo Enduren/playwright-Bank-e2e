@@ -2,12 +2,14 @@ import { test, expect } from '@playwright/test'
 import { LoginPage } from '../page/LoginPage'
 
 test.describe('Filter Transactions', () => {
+  let loginPage: LoginPage
   test.beforeEach(async ({ page }) => {
-    let loginPage: LoginPage
-
+    
     loginPage=new LoginPage(page)
 
-    loginPage.visit()
+    await loginPage.visit()
+
+    await loginPage.login("username","password")
 
     // Navigate to the transfer funds page after login
     await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');
