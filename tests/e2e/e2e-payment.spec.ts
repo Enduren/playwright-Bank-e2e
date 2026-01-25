@@ -1,33 +1,41 @@
 import { test, expect } from '@playwright/test'
 import { LoginPage } from '../page/LoginPage'
+import { HomePage } from '../page/HomePage'
+import {PayBillsPage} from '../page/PayBillsPage'
 
 test.describe('New Payment', () => {
    let loginPage: LoginPage
+   let homePage: HomePage
+  let payBillsPage: PayBillsPage
 
   test.beforeEach(async ({ page }) => {
     loginPage=new LoginPage(page)
-    loginPage.visit()
+    homePage=new HomePage(page)
+    payBillsPage=new PayBillsPage(page)
+
+    await loginPage.visit()
+    await loginPage.login("username","password")
+    await page.goBack();
+
+
 
     // Navigate to the transfer funds page after login
-    await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');
+    await homePage.gotoTransferFundsPage();
     console.log('Navigated to transfer funds page.');
+
 })
 
   test('Should send new payment', async ({ page }) => {
-    await page.click('#pay_bills_tab')
-    await page.selectOption('#sp_payee', 'apple')
-    await page.click('#sp_get_payee_details')
-    await page.waitForSelector('#sp_payee_details')
-    await page.selectOption('#sp_account', '6')
-    await page.fill('#sp_amount', '5000')
-    await page.fill('#sp_date', '2021-11-09')
-    await page.fill('#sp_description', 'some random message')
-    await page.click('#pay_saved_payees')
+    // Navigate to Pay Bills tab
+    await page.click('#pay_bills_tab')  
 
-    const message = await page.locator('#alert_content > span')
-    await expect(message).toBeVisible()
-    await expect(message).toContainText(
-      'The payment was successfully submitted'
-    )
+    // Fill payment form and submit
+    await payBillsPage.fillPaymentForm('apple', '6', '5000', '2021-11-09', 'some random message');
+    
+    //submit payment
+    await payBillsPage.submitPayment();
+
+    // Assert success message is visible
+    await payBillsPage.assertSuccessMessageVisible();
   })
 })

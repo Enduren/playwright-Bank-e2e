@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test'
 import { LoginPage } from '../page/LoginPage'
+import { HomePage } from '../page/HomePage'
+import { ForeignCurrencyPage } from '../page/ForeignCurrencyPage'
+
 
 
 test.describe.only('Currency Exchange Form', () => {
   let loginPage: LoginPage
+  let homePage: HomePage
+  let foreignCurrencyPage: ForeignCurrencyPage
 
   test.beforeEach(async ({ page }) => {
      
@@ -12,12 +17,12 @@ test.describe.only('Currency Exchange Form', () => {
 
     await loginPage.login("username","password")  
 
-    await page.waitForTimeout(3000);
+    await page.goBack()
 
     // Navigate to the transfer funds page after login
-    await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');
+    homePage=new HomePage(page)
+    await homePage.gotoTransferFundsPage();
     console.log('Navigated to transfer funds page.');
-
     
 
   })
@@ -25,25 +30,20 @@ test.describe.only('Currency Exchange Form', () => {
   test('Should make currency exchange', async ({ page }) => {
     await page.click('#pay_bills_tab')
     await page.click('text=Purchase Foreign Currency')
-    await page.selectOption('#pc_currency', 'EUR')
-    // await page.selectOption('','')
 
-    const rate = await page.locator('#sp_sell_rate')
-    await expect(rate).toContainText('1 euro (EUR)')
+    // Initialize ForeignCurrencyPage
+    foreignCurrencyPage=new ForeignCurrencyPage(page)
 
-    await page.type('#pc_amount', '1000')
-    await page.click('#pc_inDollars_true')
-    await page.click('#pc_calculate_costs')
+    // Fill currency exchange form
+    await foreignCurrencyPage.fillCurrencyExchangeForm('EUR', '1000', true)
 
-    const conversionAmount = await page.locator('#pc_conversion_amount')
-    await expect(conversionAmount).toContainText('1000.00 U.S. dollar (USD)')
+    // Calculate costs
+    await foreignCurrencyPage.calculateCosts()
 
-    await page.click('#purchase_cash')
+    // Purchase foreign currency
+    await foreignCurrencyPage.purchaseForeignCurrency()
 
-    const message = await page.locator('#alert_content')
-    await expect(message).toBeVisible()
-    await expect(message).toContainText(
-      'Foreign currency cash was successfully purchased'
-    )
+    // Assert success message is visible
+    await foreignCurrencyPage.assertSuccessMessageVisible();
   })
 })

@@ -1,32 +1,41 @@
 import { test, expect } from '@playwright/test'
 import { LoginPage } from '../page/LoginPage'
+import { HomePage } from '../page/HomePage'
+import { TransferPage } from '../page/TransferPage'
 
 test.describe('Transfer Funds and Make Payments', () => {
+  let loginPage: LoginPage
+  let homePage: HomePage  
+  let transferPage: TransferPage
+
   test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
+    loginPage = new LoginPage(page);
+    homePage = new HomePage(page);
+    transferPage = new TransferPage(page);
+
+    // Navigate to the login page before each test
     await loginPage.visit();
+
+    // Perform login
     await loginPage.login("username", "password");
+    await page.goBack();
 
     // Navigate to the transfer funds page after login
-    await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');
+    await homePage.gotoTransferFundsPage();
     console.log('Navigated to transfer funds page.');
 })
 
   test('Transfer funds', async ({ page }) => {
+    // Navigate to Transfer Funds tab
     await page.click('#transfer_funds_tab')
-    await page.selectOption('#tf_fromAccountId', '2')
-    await page.selectOption('#tf_toAccountId', '3')
-    await page.type('#tf_amount', '500')
-    await page.type('#tf_description', 'Test message')
-    await page.click('#btn_submit')
 
-    const boardHeader = await page.locator('h2.board-header')
-    await expect(boardHeader).toContainText('Verify')
-    await page.click('#btn_submit')
+    // Perform fund transfer
+    await transferPage.transferFunds('2', '3', '500', 'Test message')
+    
+    // Verify transfer page is visible
+    await transferPage.verifyTransferPageVisible();
 
-    const message = await page.locator('.alert-success')
-    await expect(message).toContainText(
-      'You successfully submitted your transaction'
-    )
+    // Verify success message
+    await transferPage.verifySuccessMessage();
   })
 })

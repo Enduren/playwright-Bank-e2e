@@ -1,37 +1,46 @@
 import { test, expect } from '@playwright/test'
 import { LoginPage } from '../page/LoginPage'
+import{ HomePage } from '../page/HomePage'
+import { AccountActivityPage } from '../page/AccountActivityPage'
 
 test.describe('Filter Transactions', () => {
   let loginPage: LoginPage
+  let homePage: HomePage  
+  let accountActivityPage: AccountActivityPage
+
   test.beforeEach(async ({ page }) => {
     
     loginPage=new LoginPage(page)
+    homePage=new HomePage(page)
+    accountActivityPage=new AccountActivityPage(page)
 
     await loginPage.visit()
 
     await loginPage.login("username","password")
 
-    // Navigate to the transfer funds page after login
-    await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');
-    console.log('Navigated to transfer funds page.');
+    await page.goBack()
   })
 
   test('Verify the results for each account', async ({ page }) => {
-    await page.click('#account_activity_tab')
-    await page.selectOption('#aa_accountId', '2')
-    const checkingAccount = await page.locator(
-      '#all_transactions_for_account tbody tr'
-    )
-    await expect(checkingAccount).toHaveCount(3)
 
-    await page.selectOption('#aa_accountId', '4')
-    const loanAccount = await page.locator(
-      '#all_transactions_for_account tbody tr'
-    )
-    await expect(loanAccount).toHaveCount(2)
+    //Navigate to transactions page
+    await homePage.gotoTransferFundsPage();
+    console.log('Navigated to transfer funds page.');
 
-    await page.selectOption('#aa_accountId', '6')
-    const noResults = await page.locator('.well')
-    await expect(noResults).toBeVisible()
+    //click on account activity tab
+    await accountActivityPage.gotoAccountActivityTab();
+
+    // Verify transactions for each account
+    await accountActivityPage.selectAccount('2'); // Checking Account
+    await accountActivityPage.verifyTransactionCount(3);
+
+    await accountActivityPage.selectAccount('4'); // Loan Account
+    await accountActivityPage.verifyTransactionCount(2);
+
+    await accountActivityPage.selectAccount('6'); // Credit Card Account
+    await accountActivityPage.verifySuccessMessage();
+
+
+    
   })
 })

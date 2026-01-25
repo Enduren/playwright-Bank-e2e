@@ -11,6 +11,7 @@ test.describe.parallel('Login / Logout Flow', () => {
 
   // Before Hook
   test.beforeEach(async ({ page }) => {
+
     // Initialize Page Objects
     loginPage=new LoginPage(page)
     homePage=new HomePage(page)
@@ -24,12 +25,10 @@ test.describe.parallel('Login / Logout Flow', () => {
   // Negative Scenario
   test('Negative Scenario for login', async ({ page }) => {
 
-    // await homePage.assertHomePageVisible()
-
     // Perform login with invalid credentials
     await loginPage.login("invalid username","invalid password")
 
-   // Assert error message is visible
+    // Assert error message is visible
     await loginPage.assertErrorMessageVisible()
   })
 
@@ -38,19 +37,14 @@ test.describe.parallel('Login / Logout Flow', () => {
     
     // Perform login with valid credentials
     await loginPage.login("username","password")
-    // await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html')
-
+    
     await page.goBack()
 
-  
-    
-    // await page.click('#logout_link')
-
-    // const accountSummaryTab = await page.locator('#account_summary_tab')
-    // await expect(accountSummaryTab).toBeVisible()
 
     // Alternatively, use HomePage method to logout
     await homePage.logout()
+
+    // Assert sign-in button is visible after logout
     await homePage.assertSignInButtonVisible()
 
     // Verify URL after logout

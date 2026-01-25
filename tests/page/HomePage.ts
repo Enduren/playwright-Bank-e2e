@@ -7,6 +7,11 @@ export class HomePage {
     readonly userIcon: Locator; 
     readonly logoutLink: Locator;
     readonly signInButton: Locator;
+    readonly checkingAccount: Locator;
+    readonly transferFundsLink: Locator;
+    readonly myMoneyMapLink: Locator;
+    readonly onlineStatementsTab: Locator;
+    readonly feedbackLink: Locator;
 
 
 
@@ -16,6 +21,11 @@ export class HomePage {
         this.userIcon = page.getByText('username')
         this.logoutLink = page.getByRole('link', { name: 'Logout' });
         this.signInButton = page.getByRole('button', { name: ' Signin' });
+        this.checkingAccount = page.locator('#account_summary_tab');
+        this.transferFundsLink = page.getByText('Transfer Funds', { exact: true })
+        this.myMoneyMapLink = page.getByText('My Money Map')
+        this.onlineStatementsTab = page.locator('#online_statements_tab');
+        this.feedbackLink = page.getByText('Feedback')
         
 
     }
@@ -36,6 +46,7 @@ export class HomePage {
         await this.logoutLink.click();
     }
 
+
     //assert to verify user sees sign in button after logout
     async assertSignInButtonVisible() {
         await expect(this.signInButton).toBeVisible();
@@ -45,6 +56,42 @@ export class HomePage {
         const homePageHeader = await this.page.locator('text=HOME');
         await expect(homePageHeader).toBeVisible();
     }
+
+    async gotoCheckingAccountVisible() {
+        await expect(this.checkingAccount).toBeVisible();
+
+        await this.checkingAccount.click();
+        await expect(this.page).toHaveURL("http://zero.webappsecurity.com/bank/account-activity.html");
+    }
+
+    //goto Transfer Funds Page
+    async gotoTransferFundsPage() {
+        await expect(this.transferFundsLink).toBeVisible(); 
+        await this.transferFundsLink.click();
+        await expect(this.page).toHaveURL("http://zero.webappsecurity.com/bank/transfer-funds.html");
+    }
+
+    //goto My Money Map Page
+    async gotoMyMoneyMapPage() {
+        // await expect(this.myMoneyMapLink).toBeVisible(); 
+        await this.myMoneyMapLink.click();
+        await expect(this.page).toHaveURL("http://zero.webappsecurity.com/bank/money-map.html");
+    }
+    //goto Online Statements Page
+    async gotoOnlineStatementsPage() {
+        await expect(this.onlineStatementsTab).toBeVisible(); 
+        await this.onlineStatementsTab.click();
+        await expect(this.page).toHaveURL("http://zero.webappsecurity.com/bank/online-statements.html");
+    }
+
+    //goto Feedback Page
+    async gotoFeedbackPage() {
+        await expect(this.feedbackLink).toBeVisible(); 
+        await this.feedbackLink.click();
+        await expect(this.page).toHaveURL("http://zero.webappsecurity.com/feedback.html");
+    }
+
+
 
  
 }

@@ -1,32 +1,33 @@
 import { test, expect } from '@playwright/test'
+import { FeedbackPage } from '../page/FeedbackPage'
 
 test.describe('Feedback Form', () => {
+  let feedbackPage: FeedbackPage
+
   test.beforeEach(async ({ page }) => {
+    feedbackPage = new FeedbackPage(page)
     await page.goto('http://zero.webappsecurity.com/index.html')
     await page.click('#feedback')
   })
+  
 
   // Reset feedback form
   test('Reset feedback form', async ({ page }) => {
-    await page.type('#name', 'some name')
-    await page.type('#email', 'some email@email.com')
-    await page.type('#subject', 'some subject')
-    await page.type('#comment', 'some nice comment about the application')
-    await page.click("input[name='clear']")
+    //call fill method from FeedbackPage
+    await feedbackPage.fillFeedbackForm('some name', 'some email@email.com', 'some subject', 'some nice comment about the application')
+    
+    //call clear method from FeedbackPage
+    await feedbackPage.clearFeedbackForm()
 
-    const nameInput = await page.locator('#name')
-    const commentInput = await page.locator('#comment')
-    await expect(nameInput).toBeEmpty()
-    await expect(commentInput).toBeEmpty()
+    //assert the form is cleared
+    await feedbackPage.assertFormCleared()
+    
   })
 
   // Submit feedback form
   test('Submit feedback form', async ({ page }) => {
-    await page.type('#name', 'some name')
-    await page.type('#email', 'some email@email.com')
-    await page.type('#subject', 'some subject')
-    await page.type('#comment', 'some nice comment about the application')
-    await page.click("input[type='submit']")
-    await page.waitForSelector('#feedback-title')
+    await feedbackPage.fillFeedbackForm('some name', 'some email@email.com', 'some subject', 'some nice comment about the application')
+    await feedbackPage.submitFeedbackForm()
+    // await page.waitForSelector('#feedback-title')
   })
 })
