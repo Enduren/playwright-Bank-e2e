@@ -8,6 +8,7 @@ export class LoginPage {
     readonly submitButton: Locator;
     readonly errorMessage: Locator;
 
+    // Initialize selectors using constructor
     constructor(page: Page) {
         this.page = page;
         // Using specific selectors for better reliability
@@ -18,7 +19,7 @@ export class LoginPage {
     }
 
     // Define login page methods
-    async visit() {
+      async visit() {
         await this.page.goto('http://zero.webappsecurity.com/login.html');
     }
 
@@ -31,6 +32,6 @@ export class LoginPage {
 
     async assertErrorMessageVisible() {
         // Assertions should target the locator directly
-        await expect(this.errorMessage).toBeVisible();
+        await expect(this.errorMessage).toContainText("Login and/or password are wrong.");
     }
 }

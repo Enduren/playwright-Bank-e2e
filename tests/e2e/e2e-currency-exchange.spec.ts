@@ -10,7 +10,9 @@ test.describe.only('Currency Exchange Form', () => {
     loginPage=new LoginPage(page)
     await loginPage.visit()
 
-    await loginPage.login("username","password")
+    await loginPage.login("username","password")  
+
+    await page.waitForTimeout(3000);
 
     // Navigate to the transfer funds page after login
     await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');

@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test'
-import PageAction from '../page/login';
+import { LoginPage } from '../page/LoginPage'
 
 test.describe('Transfer Funds and Make Payments', () => {
   test.beforeEach(async ({ page }) => {
-    const pageLogin = new PageAction();
-    await pageLogin.login(page)
+    const loginPage = new LoginPage(page);
+    await loginPage.visit();
+    await loginPage.login("username", "password");
 
     // Navigate to the transfer funds page after login
     await page.goto('http://zero.webappsecurity.com/bank/transfer-funds.html');
