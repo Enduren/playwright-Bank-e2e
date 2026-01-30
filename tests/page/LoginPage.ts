@@ -20,6 +20,7 @@ export class LoginPage {
         
     }
 
+    // Method to perform fund transfer
     // Define login page methods
       async visit() {
         await this.page.goto('http://zero.webappsecurity.com/login.html');

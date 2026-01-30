@@ -4,12 +4,13 @@ import{ HomePage } from '../page/HomePage'
 import { AccountActivityPage } from '../page/AccountActivityPage'
 
 test.describe('Filter Transactions', () => {
+  // Page Objects
   let loginPage: LoginPage
   let homePage: HomePage  
   let accountActivityPage: AccountActivityPage
 
   test.beforeEach(async ({ page }) => {
-    
+    // Initialize Page Objects
     loginPage=new LoginPage(page)
     homePage=new HomePage(page)
     accountActivityPage=new AccountActivityPage(page)

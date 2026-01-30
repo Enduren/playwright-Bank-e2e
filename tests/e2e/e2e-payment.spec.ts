@@ -4,16 +4,21 @@ import { HomePage } from '../page/HomePage'
 import {PayBillsPage} from '../page/PayBillsPage'
 
 test.describe('New Payment', () => {
+  // Page Objects
    let loginPage: LoginPage
    let homePage: HomePage
-  let payBillsPage: PayBillsPage
+   let payBillsPage: PayBillsPage
 
   test.beforeEach(async ({ page }) => {
+    // Initialize Page Objects
     loginPage=new LoginPage(page)
     homePage=new HomePage(page)
     payBillsPage=new PayBillsPage(page)
 
+    //goto url
     await loginPage.visit()
+
+    //sign in
     await loginPage.login("username","password")
     await page.goBack();
 

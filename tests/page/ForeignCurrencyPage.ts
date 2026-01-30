@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 export class ForeignCurrencyPage {
+    // Define Selectors
     readonly page: Page;
     readonly currencySelect: Locator
     readonly amountInput: Locator;
@@ -9,6 +10,7 @@ export class ForeignCurrencyPage {
     readonly purchaseButton: Locator
     readonly successMessage: Locator
     
+    // Initialize selectors using constructor
     constructor(page: Page) {
         this.page = page;
         this.currencySelect = page.locator('#pc_currency');
@@ -19,6 +21,8 @@ export class ForeignCurrencyPage {
         this.purchaseButton = page.locator('#purchase_cash');
         this.successMessage = page.locator('#alert_content');
     }
+
+    // Method to perform fund transfer
     async fillCurrencyExchangeForm(currency: string, amount: string, inDollars: boolean) {
         await this.currencySelect.selectOption(currency);
         await this.amountInput.fill(amount);

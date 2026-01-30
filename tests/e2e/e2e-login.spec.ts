@@ -17,9 +17,7 @@ test.describe.parallel('Login / Logout Flow', () => {
     homePage=new HomePage(page)
 
     // Navigate to the login page before each test
-    await loginPage.visit()
-    
-    
+    await loginPage.visit()    
   })
 
   // Negative Scenario

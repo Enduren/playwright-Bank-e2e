@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 
 export class FeedbackPage{
+    //Define selectors
     readonly page: Page;
     readonly nameInput: Locator
     readonly emailInput: Locator
@@ -9,6 +10,8 @@ export class FeedbackPage{
     readonly submitButton: Locator
     readonly clearButton: Locator
     readonly feedbackTitle: Locator
+
+    // Initialize selectors using constructor
     constructor(page:Page){
         this.page = page;
         this.nameInput = page.locator('#name');
@@ -19,6 +22,8 @@ export class FeedbackPage{
         this.clearButton = page.locator("input[name='clear']");
         this.feedbackTitle = page.locator('#feedback-title');
     }
+
+    // Method to perform fund transfer
     async fillFeedbackForm(name:string, email:string, subject:string, comment:string){
         await this.nameInput.fill(name);
         await this.emailInput.fill(email);

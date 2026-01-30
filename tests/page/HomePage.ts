@@ -3,6 +3,7 @@ import { assert } from 'console';
 
 
 export class HomePage {
+    // Define Selectors
     readonly page: Page;
     readonly userIcon: Locator; 
     readonly logoutLink: Locator;
@@ -16,6 +17,7 @@ export class HomePage {
 
 
 
+    // Initialize selectors using constructor
     constructor(page:Page) {
         this.page = page;   
         this.userIcon = page.getByText('username')
@@ -30,6 +32,7 @@ export class HomePage {
 
     }
 
+    // Method to perform fund transfer
     async logout() {
         // Step 1: Click the icon. 
         // If clicking doesn't work, swap .click() for .hover()

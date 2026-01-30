@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 export class PayBillsPage { 
+    // Define Selectors
     readonly page: Page;
     readonly payeeSelect: Locator;
     readonly accountSelect: Locator
@@ -10,6 +11,7 @@ export class PayBillsPage {
     readonly successMessage: Locator
 
 
+    // Initialize selectors using constructor
     constructor(page: Page) {
         this.page = page;
         this.payeeSelect = page.locator('#sp_payee');
@@ -20,6 +22,8 @@ export class PayBillsPage {
         this.payButton = page.locator('#pay_saved_payees');
         this.successMessage = page.locator('#alert_content > span');
     }
+
+    // Method to perform fund transfer
     async fillPaymentForm(payee: string, account: string, amount: string, date: string, description: string) {
         await this.payeeSelect.selectOption(payee);
         await this.accountSelect.selectOption(account);

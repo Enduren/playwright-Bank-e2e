@@ -4,6 +4,7 @@ import { HomePage } from '../page/HomePage'
 import { TransferPage } from '../page/TransferPage'
 
 test.describe('Transfer Funds and Make Payments', () => {
+  // Page Objects
   let loginPage: LoginPage
   let homePage: HomePage  
   let transferPage: TransferPage

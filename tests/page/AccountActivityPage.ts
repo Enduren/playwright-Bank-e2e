@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 
 export class AccountActivityPage {
+    // Define Selectors
     readonly page: Page;
     readonly fromAccountSelect: Locator;
     readonly toAccountSelect: Locator;
@@ -10,7 +11,7 @@ export class AccountActivityPage {
     readonly successMessage: Locator;
     readonly accountActivityTab: Locator;
 
-
+    // Initialize selectors using constructor
     constructor(page: Page) {
         this.page = page;
         this.fromAccountSelect = page.locator('#tf_fromAccountId');
@@ -21,7 +22,8 @@ export class AccountActivityPage {
         this.successMessage = page.locator('.alert-success');
         this.accountActivityTab = page.locator('#account_activity_tab');
 
-    }   
+    } 
+      
     // Method to perform fund transfer
 
     //click account activity tab

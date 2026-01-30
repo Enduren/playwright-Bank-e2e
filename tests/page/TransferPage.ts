@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 export class TransferPage {
+    // Define Selectors
     readonly page: Page;
     readonly fromAccountSelect: Locator
     readonly toAccountSelect: Locator
@@ -8,7 +9,9 @@ export class TransferPage {
     readonly submitButton: Locator
     readonly successMessage: Locator
     readonly boardHeader: Locator
+    
 
+    // Initialize selectors using constructor
     constructor(page: Page) {
         this.page = page;
         this.fromAccountSelect = page.locator('#tf_fromAccountId');
@@ -18,7 +21,9 @@ export class TransferPage {
         this.submitButton = page.locator('#btn_submit');
         this.successMessage = page.locator('.alert-success');
         this.boardHeader = page.locator('h2.board-header');
-    }   
+    }  
+    
+    // Method to perform fund transfer
     async transferFunds(fromAccount: string, toAccount: string, amount: string, description: string) {
         await this.fromAccountSelect.selectOption(fromAccount);
         await this.toAccountSelect.selectOption(toAccount);
