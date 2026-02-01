@@ -9,14 +9,16 @@ import { defineConfig, devices } from '@playwright/test';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
- * See https://playwright.dev/docs/test-configuration.
+ * See https://playwright.dev/docs/test-configuration. tests/e2e/tips/tips.spec.ts
  */
 export default defineConfig({
   timeout: 30000,
   expect: {
     timeout: 5000
   },
-  testDir: './tests',
+  // testDir: './tests',
+  testDir: 'tests/tips',
+
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

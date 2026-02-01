@@ -5,7 +5,7 @@ import { ForeignCurrencyPage } from '../page/ForeignCurrencyPage'
 
 
 
-test.describe.only('Currency Exchange Form', () => {
+test.describe('Currency Exchange Form', () => {
   // Page Objects
   let loginPage: LoginPage
   let homePage: HomePage
