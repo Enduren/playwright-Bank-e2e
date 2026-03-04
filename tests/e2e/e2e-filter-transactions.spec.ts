@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
-import { LoginPage } from '../page/LoginPage'
-import{ HomePage } from '../page/HomePage'
-import { AccountActivityPage } from '../page/AccountActivityPage'
+import { LoginPage } from '../../page/LoginPage'
+import{ HomePage } from '../../page/HomePage'
+import { AccountActivityPage } from '../../page/AccountActivityPage'
 
 test.describe('Filter Transactions', () => {
   // Page Objects

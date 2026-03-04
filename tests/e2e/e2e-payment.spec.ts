@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
-import { LoginPage } from '../page/LoginPage'
-import { HomePage } from '../page/HomePage'
-import {PayBillsPage} from '../page/PayBillsPage'
+import { LoginPage } from '../../page/LoginPage'
+import { HomePage } from '../../page/HomePage'
+import {PayBillsPage} from '../../page/PayBillsPage'
 
 test.describe('New Payment', () => {
   // Page Objects

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { LoginPage } from '../page/LoginPage'
-import { HomePage } from '../page/HomePage'
+import { LoginPage } from '../../page/LoginPage'
+import { HomePage } from '../../page/HomePage'
 
 test.describe.parallel('Login / Logout Flow', () => {
 
