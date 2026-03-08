@@ -18,6 +18,7 @@ test.describe('Filter Transactions', () => {
     await loginPage.visit()
 
     await loginPage.login("username","password")
+    await expect(page).toHaveScreenshot()
 
     await page.goBack()
   })
