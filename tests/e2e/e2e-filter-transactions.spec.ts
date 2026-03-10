@@ -31,6 +31,7 @@ test.describe('Filter Transactions', () => {
 
     //click on account activity tab
     await accountActivityPage.gotoAccountActivityTab();
+    await expect(page).toHaveScreenshot()
 
     // Verify transactions for each account
     await accountActivityPage.selectAccount('2'); // Checking Account
