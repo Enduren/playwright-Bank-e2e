@@ -27,6 +27,7 @@ test.describe('New Payment', () => {
     // Navigate to the transfer funds page after login
     await homePage.gotoTransferFundsPage();
     console.log('Navigated to transfer funds page.');
+    await expect(page).toHaveScreenshot()
 
 })
 
