@@ -15,9 +15,10 @@ test.describe('Currency Exchange Form', () => {
      // Initialize Page Objects
     loginPage=new LoginPage(page)
 
-    
+    // Navigate to the login page and perform login
     await loginPage.visit()
 
+    // Perform login with valid credentials
     await loginPage.login("username","password")  
 
     await page.goBack()
