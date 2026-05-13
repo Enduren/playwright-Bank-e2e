@@ -25,6 +25,8 @@ test.describe('Currency Exchange Form', () => {
 
     // Navigate to the transfer funds page after login
     homePage=new HomePage(page)
+
+    // Assert that the home page is visible after login
     await homePage.gotoTransferFundsPage();
     console.log('Navigated to transfer funds page.');
     
